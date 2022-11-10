@@ -38,8 +38,8 @@ function Main(props) {
                         onClick={props.onAddPlace}></button>
             </section>
             <section className="cards">
-                {cards.map((card, i) => (
-                   <Card card={card} key={i} />
+                {cards.map((card) => (
+                   <Card card={card} key={card._id} onCardClick={props.onCardClick} />
                 ))}
             </section>
         </main>
