@@ -23,36 +23,31 @@ function App() {
         }
     }
 
-    function handleEditProfileClick() {
-        setIsEditProfilePopupOpen(true);
+    function addPopupListeners(){
         window.addEventListener('keydown', closeByEsc);
         window.addEventListener('click', (evt) => {
             closeByBackground(evt);
         });
+    }
+
+    function handleEditProfileClick() {
+        setIsEditProfilePopupOpen(true);
+        addPopupListeners();
     }
 
     function handleAddPlaceClick() {
         setAddPlacePopupOpen(true);
-        window.addEventListener('keydown', closeByEsc);
-        window.addEventListener('click', (evt) => {
-            closeByBackground(evt);
-        });
+        addPopupListeners();
     }
 
     function handleEditAvatarClick() {
         setIsEditAvatarPopupOpen(true);
-        window.addEventListener('keydown', closeByEsc);
-        window.addEventListener('click', (evt) => {
-            closeByBackground(evt);
-        });
+        addPopupListeners();
     }
 
     function handleCardClick(card) {
         setSelectedCard(card);
-        window.addEventListener('keydown', closeByEsc);
-        window.addEventListener('click', (evt) => {
-            closeByBackground(evt);
-        });
+        addPopupListeners();
     }
 
     function closeAllPopups() {
