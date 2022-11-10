@@ -70,18 +70,6 @@ function App() {
                        placeholder="Ссылка на аватар" required/>
                 <span className="edit-photo-input-link-error popup__item-error"></span>
             </PopupWithForm>
-
-            <template id="card">
-                <article className="card">
-                    <button aria-label="удалить" type="button" className="card__delete-button"></button>
-                    <img className="card__image"/>
-                    <div className="card__info">
-                        <h2 className="card__title"></h2>
-                        <button type="button" className="card__like"></button>
-                        <span className="card__like_sum">0</span>
-                    </div>
-                </article>
-            </template>
         </div>
     )
 

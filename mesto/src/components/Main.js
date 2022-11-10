@@ -1,5 +1,6 @@
 import React from "react";
 import {api} from "../utils/api"
+import Card from "./Card";
 
 function Main(props) {
     let [userName, setUserName] = React.useState();
@@ -8,17 +9,18 @@ function Main(props) {
     let [cards, setCards] = React.useState([]);
 
     React.useEffect(() => {
-        api.getUserInfo()
-            .then((userInfo) => {
+        Promise.all([api.getUserInfo(), api.getCards()])
+            .then((values) => {
+                const userInfo = values[0];
                 setUserName(userInfo.name);
                 setUserDescription(userInfo.about);
                 setUserAvatar(userInfo.avatar);
+
+                const cardList = values[1];
+                setCards(cardList);
             })
-        api.getCards()
-            .then((cardList) => {
-               setCards(cardList);
-            })
-    })
+            .catch((err) => console.log(err))
+    }, [])
 
     return (
         <main className="main">
@@ -37,15 +39,7 @@ function Main(props) {
             </section>
             <section className="cards">
                 {cards.map((card, i) => (
-                    <article className="card" key={i}>
-                        <button aria-label="удалить" type="button" className="card__delete-button"></button>
-                        <img className="card__image" src={`${card.link}`} alt={`${card.name}`}/>
-                        <div className="card__info">
-                            <h2 className="card__title">{`${card.name}`}</h2>
-                            <button type="button" className="card__like"></button>
-                            <span className="card__like_sum">{`${card.likes.length}`}</span>
-                        </div>
-                    </article>
+                   <Card card={card} key={i} />
                 ))}
             </section>
         </main>
