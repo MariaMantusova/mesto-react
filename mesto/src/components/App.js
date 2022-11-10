@@ -1,89 +1,64 @@
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
+import ImagePopup from "./ImagePopup";
+import PopupWithForm from "./PopupWithForm";
 
 function App() {
+    function handleEditProfileClick() {
+        const popupEditProfileInfo = document.querySelector('.popup_theme_profile-info');
+        popupEditProfileInfo.classList.add('popup_opened')
+    }
+
+    function handleEditAvatarClick() {
+        const popupEditAvatar = document.querySelector('.popup_theme_edit-photo');
+        popupEditAvatar.classList.add('popup_opened')
+    }
+
+    function handleAddPlaceClick() {
+        const popupAddCard = document.querySelector('.popup_theme_add-card');
+        popupAddCard.classList.add('popup_opened')
+    }
+
     return (
         <div className="page">
-            <Header />
-            <Main />
-            <Footer />
+            <Header/>
+            <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick}
+                  onEditAvatar={handleEditAvatarClick}/>
+            <Footer/>
 
-            <div className="popup popup_theme_image">
-                <figure className="popup__image-container">
-                    <button aria-label="закрыть" type="button"
-                            className="popup__button-close popup__button-close_theme_image"></button>
-                    <img className="popup__image"/>
-                    <figcaption className="popup__caption"></figcaption>
-                </figure>
-            </div>
+            <ImagePopup/>
 
-            <div className="popup popup_theme_confirm">
-                <div className="popup__container">
-                    <button type="button" className="popup__button-close popup__button-close_theme_confirm"></button>
-                    <h2 className="popup__title popup__title_theme_confirm">Вы уверены?</h2>
-                    <button className="popup__button popup__button_theme_confirm">Да</button>
-                </div>
-            </div>
+            <PopupWithForm name="confirm" title="Вы уверены?" buttonText="Да"/>
 
-            <div className="popup popup_theme_profile-info">
-                <div className="popup__container">
-                    <button aria-label="закрыть" type="button"
-                            className="popup__button-close popup__button-close_theme_profile-info"></button>
-                    <h2 className="popup__title">Редактировать профиль</h2>
-                    <form className="popup__form popup__form_theme_profile-info" noValidate>
-                        <input type="text" id="profile-info-input-name" name="name"
-                               className="popup__item popup__item_el_name"
-                               placeholder="Имя пользователя" minLength="2" maxLength="40" required/>
-                        <span className="profile-info-input-name-error popup__item-error"></span>
-                        <input type="text" id="profile-info-input-job" name="job"
-                               className="popup__item popup__item_el_job"
-                               placeholder="Род деятельности" minLength="2" maxLength="200" required/>
-                        <span className="profile-info-input-job-error popup__item-error"></span>
-                        <button className="popup__button popup__button_theme_profile-info">
-                            Сохранить
-                        </button>
-                    </form>
-                </div>
-            </div>
+            <PopupWithForm name="profile-info" title="Редактировать профиль" buttonText="Сохранить">
+                <input type="text" id="profile-info-input-name" name="name"
+                       className="popup__item popup__item_el_name"
+                       placeholder="Имя пользователя" minLength="2" maxLength="40" required/>
+                <span className="profile-info-input-name-error popup__item-error"></span>
+                <input type="text" id="profile-info-input-job" name="job"
+                       className="popup__item popup__item_el_job"
+                       placeholder="Род деятельности" minLength="2" maxLength="200" required/>
+                <span className="profile-info-input-job-error popup__item-error"></span>
+            </PopupWithForm>
 
-            <div className="popup popup_theme_add-card">
-                <div className="popup__container">
-                    <button aria-label="закрыть" type="button"
-                            className="popup__button-close popup__button-close_theme_add-card"></button>
-                    <h2 className="popup__title">Новое место</h2>
-                    <form className="popup__form popup__form_theme_add-card" noValidate>
-                        <input type="text" id="add-card-input-title" name="name"
-                               className="popup__item popup__item_el_title"
-                               placeholder="Название" minLength="2" maxLength="30" required/>
-                        <span className="add-card-input-title-error popup__item-error"></span>
-                        <input type="url" id="add-card-input-link" name="link"
-                               className="popup__item popup__item_el_image"
-                               placeholder="Ссылка на картинку" required/>
-                        <span className="add-card-input-link-error popup__item-error"></span>
-                        <button className="popup__button popup__button_theme_add-card">
-                            Создать
-                        </button>
-                    </form>
-                </div>
-            </div>
+            <PopupWithForm name="add-card" title="Новое место" buttonText="Создать">
+                <input type="text" id="add-card-input-title" name="name"
+                       className="popup__item popup__item_el_title"
+                       placeholder="Название" minLength="2" maxLength="30" required/>
+                <span className="add-card-input-title-error popup__item-error"></span>
+                <input type="url" id="add-card-input-link" name="link"
+                       className="popup__item popup__item_el_image"
+                       placeholder="Ссылка на картинку" required/>
+                <span className="add-card-input-link-error popup__item-error"></span>
+            </PopupWithForm>
 
-            <div className="popup popup_theme_edit-photo">
-                <div className="popup__container">
-                    <button type="button"
-                            className="popup__button-close popup__button-close_theme_edit-button"></button>
-                    <h2 className="popup__title popup__title_theme_edit-photo">Обновить аватар</h2>
-                    <form className="popup__form popup__form_theme_edit-photo">
-                        <input type="url" id="edit-photo-input-link" name="avatar"
-                               className="popup__item popup__item_el_image"
-                               placeholder="Ссылка на аватар" required/>
-                        <span className="edit-photo-input-link-error popup__item-error"></span>
-                        <button className="popup__button popup__button_theme_edit-photo">
-                            Сохранить
-                        </button>
-                    </form>
-                </div>
-            </div>
+            <PopupWithForm name="edit-photo" title="Обновить аватар" buttonText="Сохранить">
+                <input type="url" id="edit-photo-input-link" name="avatar"
+                       className="popup__item popup__item_el_image"
+                       placeholder="Ссылка на аватар" required/>
+                <span className="edit-photo-input-link-error popup__item-error"></span>
+            </PopupWithForm>
 
             <template id="card">
                 <article className="card">
@@ -98,6 +73,7 @@ function App() {
             </template>
         </div>
     )
+
 }
 
 export default App;
