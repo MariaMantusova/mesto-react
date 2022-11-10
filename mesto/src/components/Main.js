@@ -10,13 +10,11 @@ function Main(props) {
 
     React.useEffect(() => {
         Promise.all([api.getUserInfo(), api.getCards()])
-            .then((values) => {
-                const userInfo = values[0];
+            .then(([userInfo, cardList]) => {
                 setUserName(userInfo.name);
                 setUserDescription(userInfo.about);
                 setUserAvatar(userInfo.avatar);
 
-                const cardList = values[1];
                 setCards(cardList);
             })
             .catch((err) => console.log(err))
