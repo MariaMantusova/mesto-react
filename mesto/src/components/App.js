@@ -11,26 +11,56 @@ function App() {
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
     const [selectedCard, setSelectedCard] = React.useState(null);
 
+    function closeByEsc(evt)  {
+        if (evt.key === 'Escape') {
+            closeAllPopups();
+        }
+    }
+
+    function closeByBackground(evt) {
+        if (evt.target.classList.contains('popup')) {
+            closeAllPopups();
+        }
+    }
+
     function handleEditProfileClick() {
         setIsEditProfilePopupOpen(true);
+        window.addEventListener('keydown', closeByEsc);
+        window.addEventListener('click', (evt) => {
+            closeByBackground(evt);
+        });
     }
 
     function handleAddPlaceClick() {
         setAddPlacePopupOpen(true);
+        window.addEventListener('keydown', closeByEsc);
+        window.addEventListener('click', (evt) => {
+            closeByBackground(evt);
+        });
     }
 
     function handleEditAvatarClick() {
         setIsEditAvatarPopupOpen(true);
+        window.addEventListener('keydown', closeByEsc);
+        window.addEventListener('click', (evt) => {
+            closeByBackground(evt);
+        });
     }
 
     function handleCardClick(card) {
         setSelectedCard(card);
+        window.addEventListener('keydown', closeByEsc);
+        window.addEventListener('click', (evt) => {
+            closeByBackground(evt);
+        });
     }
 
     function closeAllPopups() {
         setIsEditProfilePopupOpen(false);
         setAddPlacePopupOpen(false);
         setIsEditAvatarPopupOpen(false);
+        window.removeEventListener('keydown', closeByEsc);
+        window.removeEventListener('click', closeByBackground);
         setSelectedCard(null);
     }
 
