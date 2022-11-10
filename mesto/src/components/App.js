@@ -1,3 +1,4 @@
+import React from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -5,19 +6,20 @@ import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
 
 function App() {
-    function handleEditProfileClick() {
-        const popupEditProfileInfo = document.querySelector('.popup_theme_profile-info');
-        popupEditProfileInfo.classList.add('popup_opened')
-    }
+    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+    const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+    const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
 
-    function handleEditAvatarClick() {
-        const popupEditAvatar = document.querySelector('.popup_theme_edit-photo');
-        popupEditAvatar.classList.add('popup_opened')
+    function handleEditProfileClick() {
+        setIsEditProfilePopupOpen(true);
     }
 
     function handleAddPlaceClick() {
-        const popupAddCard = document.querySelector('.popup_theme_add-card');
-        popupAddCard.classList.add('popup_opened')
+        setAddPlacePopupOpen(true);
+    }
+
+    function handleEditAvatarClick() {
+        setIsEditAvatarPopupOpen(true);
     }
 
     return (
@@ -31,7 +33,8 @@ function App() {
 
             <PopupWithForm name="confirm" title="Вы уверены?" buttonText="Да"/>
 
-            <PopupWithForm name="profile-info" title="Редактировать профиль" buttonText="Сохранить">
+            <PopupWithForm name="profile-info" title="Редактировать профиль" buttonText="Сохранить"
+                           isOpen={isEditProfilePopupOpen}>
                 <input type="text" id="profile-info-input-name" name="name"
                        className="popup__item popup__item_el_name"
                        placeholder="Имя пользователя" minLength="2" maxLength="40" required/>
@@ -42,7 +45,8 @@ function App() {
                 <span className="profile-info-input-job-error popup__item-error"></span>
             </PopupWithForm>
 
-            <PopupWithForm name="add-card" title="Новое место" buttonText="Создать">
+            <PopupWithForm name="add-card" title="Новое место" buttonText="Создать"
+                           isOpen={isAddPlacePopupOpen}>
                 <input type="text" id="add-card-input-title" name="name"
                        className="popup__item popup__item_el_title"
                        placeholder="Название" minLength="2" maxLength="30" required/>
@@ -53,7 +57,8 @@ function App() {
                 <span className="add-card-input-link-error popup__item-error"></span>
             </PopupWithForm>
 
-            <PopupWithForm name="edit-photo" title="Обновить аватар" buttonText="Сохранить">
+            <PopupWithForm name="edit-photo" title="Обновить аватар" buttonText="Сохранить"
+                           isOpen={isEditAvatarPopupOpen}>
                 <input type="url" id="edit-photo-input-link" name="avatar"
                        className="popup__item popup__item_el_image"
                        placeholder="Ссылка на аватар" required/>
