@@ -22,6 +22,12 @@ function App() {
         setIsEditAvatarPopupOpen(true);
     }
 
+    function closeAllPopups() {
+        setIsEditProfilePopupOpen(false);
+        setAddPlacePopupOpen(false);
+        setIsEditAvatarPopupOpen(false);
+    }
+
     return (
         <div className="page">
             <Header/>
@@ -34,7 +40,7 @@ function App() {
             <PopupWithForm name="confirm" title="Вы уверены?" buttonText="Да"/>
 
             <PopupWithForm name="profile-info" title="Редактировать профиль" buttonText="Сохранить"
-                           isOpen={isEditProfilePopupOpen}>
+                           isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
                 <input type="text" id="profile-info-input-name" name="name"
                        className="popup__item popup__item_el_name"
                        placeholder="Имя пользователя" minLength="2" maxLength="40" required/>
@@ -46,7 +52,7 @@ function App() {
             </PopupWithForm>
 
             <PopupWithForm name="add-card" title="Новое место" buttonText="Создать"
-                           isOpen={isAddPlacePopupOpen}>
+                           isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
                 <input type="text" id="add-card-input-title" name="name"
                        className="popup__item popup__item_el_title"
                        placeholder="Название" minLength="2" maxLength="30" required/>
@@ -58,7 +64,7 @@ function App() {
             </PopupWithForm>
 
             <PopupWithForm name="edit-photo" title="Обновить аватар" buttonText="Сохранить"
-                           isOpen={isEditAvatarPopupOpen}>
+                           isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
                 <input type="url" id="edit-photo-input-link" name="avatar"
                        className="popup__item popup__item_el_image"
                        placeholder="Ссылка на аватар" required/>
