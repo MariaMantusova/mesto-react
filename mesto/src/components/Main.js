@@ -33,6 +33,14 @@ function Main(props) {
         }
     }
 
+    function handleCardDelete(card) {
+        api.deleteCard(card._id)
+            .then(() => {
+                setCards((state) => state.filter((c) => c._id !== card._id));
+            })
+
+    }
+
     return (
         <main className="main">
             <section className="profile">
@@ -50,7 +58,8 @@ function Main(props) {
             </section>
             <section className="cards">
                 {cards.map((card) => (
-                   <Card card={card} key={card._id} onCardClick={props.onCardClick} onCardLike={handleCardLike} />
+                    <Card card={card} key={card._id} onCardClick={props.onCardClick} onCardLike={handleCardLike}
+                          onCardDelete={handleCardDelete} />
                 ))}
             </section>
         </main>
