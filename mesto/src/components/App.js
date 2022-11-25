@@ -14,15 +14,15 @@ function App() {
     const [selectedCard, setSelectedCard] = React.useState(null);
     const [currentUser, setCurrentUser] = React.useState({});
 
-    React.useEffect(
-        api.getUserInfo
+    React.useEffect(() => {
+        api.getUserInfo()
             .then((user) => {
                 setCurrentUser(user);
             })
             .catch((err) => {
                 console.log(err);
             })
-    );
+    }, [])
 
     function closeByEsc(evt)  {
         if (evt.key === 'Escape') {
