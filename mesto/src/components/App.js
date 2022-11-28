@@ -5,7 +5,8 @@ import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
 import {api} from "../utils/api";
-import {CurrentUserContext} from "../contexts/CurrentUserContext"
+import {CurrentUserContext} from "../contexts/CurrentUserContext";
+import EditProfilePopup from "./EditProfilePopup";
 
 function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -84,17 +85,7 @@ function App() {
 
                 <PopupWithForm name="confirm" title="Вы уверены?" buttonText="Да"/>
 
-                <PopupWithForm name="profile-info" title="Редактировать профиль" buttonText="Сохранить"
-                               isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
-                    <input type="text" id="profile-info-input-name" name="name"
-                           className="popup__item popup__item_el_name"
-                           placeholder="Имя пользователя" minLength="2" maxLength="40" required/>
-                    <span className="profile-info-input-name-error popup__item-error"></span>
-                    <input type="text" id="profile-info-input-job" name="job"
-                           className="popup__item popup__item_el_job"
-                           placeholder="Род деятельности" minLength="2" maxLength="200" required/>
-                    <span className="profile-info-input-job-error popup__item-error"></span>
-                </PopupWithForm>
+                <EditProfilePopup onClose={closeAllPopups} isOpen={isEditProfilePopupOpen} />
 
                 <PopupWithForm name="add-card" title="Новое место" buttonText="Создать"
                                isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
