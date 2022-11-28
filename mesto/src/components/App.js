@@ -7,6 +7,7 @@ import PopupWithForm from "./PopupWithForm";
 import {api} from "../utils/api";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -97,6 +98,8 @@ function App() {
                 <EditProfilePopup onClose={closeAllPopups} isOpen={isEditProfilePopupOpen}
                                   onUpdateUser={handleUpdateUser}/>
 
+                <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+
                 <PopupWithForm name="add-card" title="Новое место" buttonText="Создать"
                                isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
                     <input type="text" id="add-card-input-title" name="name"
@@ -107,14 +110,6 @@ function App() {
                            className="popup__item popup__item_el_image"
                            placeholder="Ссылка на картинку" required/>
                     <span className="add-card-input-link-error popup__item-error"></span>
-                </PopupWithForm>
-
-                <PopupWithForm name="edit-photo" title="Обновить аватар" buttonText="Сохранить"
-                               isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
-                    <input type="url" id="edit-photo-input-link" name="avatar"
-                           className="popup__item popup__item_el_image"
-                           placeholder="Ссылка на аватар" required/>
-                    <span className="edit-photo-input-link-error popup__item-error"></span>
                 </PopupWithForm>
             </div>
         </CurrentUserContext.Provider>
