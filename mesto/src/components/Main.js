@@ -5,6 +5,10 @@ import {CurrentUserContext} from "../contexts/CurrentUserContext";
 function Main(props) {
     const userInfo = React.useContext(CurrentUserContext);
 
+    function likedCard(card) {
+        props.onLike(card, userInfo)
+    }
+
     return (
         <main className="main">
             <section className="profile">
@@ -22,7 +26,7 @@ function Main(props) {
             </section>
             <section className="cards">
                 {props.cards.map((card) => (
-                    <Card card={card} key={card._id} onCardClick={props.onCardClick} onCardLike={props.onLike}
+                    <Card card={card} key={card._id} onCardClick={props.onCardClick} onCardLike={likedCard}
                           onCardDelete={props.onDelete} />
                 ))}
             </section>

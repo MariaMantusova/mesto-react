@@ -11,13 +11,22 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddCardPopup from "./AddCardPopup";
 
 function App() {
-    const userInf = React.useContext(CurrentUserContext);
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
     const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
     const [selectedCard, setSelectedCard] = React.useState(null);
     const [currentUser, setCurrentUser] = React.useState({});
     const [cards, setCards] = React.useState([]);
+
+    React.useEffect(() => {
+        api.getUserInfo()
+            .then((user) => {
+                setCurrentUser(user);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [])
 
     React.useEffect(() => {
         api.getCards()
@@ -27,17 +36,17 @@ function App() {
             .catch((err) => console.log(err))
     }, [])
 
-    function handleCardLike(card) {
-        const isLiked = card.likes.some(i => i._id === userInf._id);
+    function handleCardLike(card, userInfo) {
+        const isLiked = card.likes.some(i => i._id === userInfo._id)
 
-        if (!isLiked) {
-            api.addLike(card._id)
+        if (isLiked) {
+            api.deleteLike(card._id)
                 .then((newCard) => {
                     setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
                 })
                 .catch((err) => console.log(err));
         } else {
-            api.deleteLike(card._id)
+            api.addLike(card._id)
                 .then((newCard) => {
                     setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
                 })
@@ -51,16 +60,6 @@ function App() {
                 setCards((state) => state.filter((c) => c._id !== card._id));
             })
     }
-
-    React.useEffect(() => {
-        api.getUserInfo()
-            .then((user) => {
-                setCurrentUser(user);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }, [])
 
     function closeByEsc(evt)  {
         if (evt.key === 'Escape') {
