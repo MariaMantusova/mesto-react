@@ -1,45 +1,9 @@
 import React from "react";
-import {api} from "../utils/api"
 import Card from "./Card";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
 function Main(props) {
     const userInfo = React.useContext(CurrentUserContext);
-    const [cards, setCards] = React.useState([]);
-
-    React.useEffect(() => {
-        api.getCards()
-            .then((cardList) => {
-                setCards(cardList);
-            })
-            .catch((err) => console.log(err))
-    }, [])
-
-    function handleCardLike(card) {
-        const isLiked = card.likes.some(i => i._id === userInfo._id);
-
-        if (!isLiked) {
-            api.addLike(card._id)
-                .then((newCard) => {
-                    setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-                })
-                .catch((err) => console.log(err));
-        } else {
-            api.deleteLike(card._id)
-                .then((newCard) => {
-                    setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-                })
-                .catch((err) => console.log(err));
-        }
-    }
-
-    function handleCardDelete(card) {
-        api.deleteCard(card._id)
-            .then(() => {
-                setCards((state) => state.filter((c) => c._id !== card._id));
-            })
-
-    }
 
     return (
         <main className="main">
@@ -57,9 +21,9 @@ function Main(props) {
                         onClick={props.onAddPlace}></button>
             </section>
             <section className="cards">
-                {cards.map((card) => (
-                    <Card card={card} key={card._id} onCardClick={props.onCardClick} onCardLike={handleCardLike}
-                          onCardDelete={handleCardDelete} />
+                {props.cards.map((card) => (
+                    <Card card={card} key={card._id} onCardClick={props.onCardClick} onCardLike={props.onLike}
+                          onCardDelete={props.onDelete} />
                 ))}
             </section>
         </main>
