@@ -16,7 +16,6 @@ function AddCardPopup(props) {
         cardLinkRef.current.value = ''
     }, [props.isOpen])
 
-
     return(
         <PopupWithForm name="add-card" title="Новое место" buttonText="Создать"
                        isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>

@@ -3,18 +3,16 @@ import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup(props) {
     const avatarRef = React.useRef();
-    const [avatar, setAvatar] = React.useState('');
-
-    React.useEffect(() => {
-        setAvatar(avatarRef.current);
-    }, []);
 
     function handleSubmit(e) {
         e.preventDefault();
 
-        props.onUpdateAvatar(avatar.value);
-        avatar.value = ''
+        props.onUpdateAvatar(avatarRef.current.value);
     }
+
+    React.useEffect(() => {
+        avatarRef.current.value = ''
+    }, [props.isOpen]);
 
     return (
         <PopupWithForm name="edit-photo" title="Обновить аватар" buttonText="Сохранить"
