@@ -83,6 +83,15 @@ function App() {
             .catch((err) => console.log(err))
     }
 
+    function handleUpdateAvatar(avatar) {
+        api.changeProfilePhoto(avatar)
+            .then((userInfo) => {
+                setCurrentUser(userInfo);
+                closeAllPopups();
+            })
+            .catch((err) => console.log(err))
+    }
+
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
@@ -98,7 +107,8 @@ function App() {
                 <EditProfilePopup onClose={closeAllPopups} isOpen={isEditProfilePopupOpen}
                                   onUpdateUser={handleUpdateUser}/>
 
-                <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+                <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}
+                                 onUpdateAvatar={handleUpdateAvatar}/>
 
                 <PopupWithForm name="add-card" title="Новое место" buttonText="Создать"
                                isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
