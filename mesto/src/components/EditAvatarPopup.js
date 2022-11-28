@@ -3,7 +3,7 @@ import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup(props) {
     const avatarRef = React.useRef();
-    const [avatar, setAvatar] = React.useState();
+    const [avatar, setAvatar] = React.useState('');
 
     React.useEffect(() => {
         setAvatar(avatarRef.current);

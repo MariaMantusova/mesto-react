@@ -128,6 +128,17 @@ function App() {
             .catch((err) => console.log(err))
     }
 
+    function handleAddCardSubmit(name, link) {
+        api.saveNewCard(name, link)
+            .then((newCard) => {
+                newCard.name = name;
+                newCard.link = link;
+                setCards([newCard, ...cards]);
+                closeAllPopups();
+            })
+            .catch((err) => console.log(err));
+    }
+
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
@@ -147,7 +158,7 @@ function App() {
                 <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}
                                  onUpdateAvatar={handleUpdateAvatar}/>
 
-                <AddCardPopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+                <AddCardPopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddCard={handleAddCardSubmit} />
             </div>
         </CurrentUserContext.Provider>
     )
