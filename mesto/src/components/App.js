@@ -8,6 +8,7 @@ import {api} from "../utils/api";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import AddCardPopup from "./AddCardPopup";
 
 function App() {
     const userInf = React.useContext(CurrentUserContext);
@@ -133,8 +134,7 @@ function App() {
                 <Header/>
                 <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick}
                       onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} cards={cards}
-                      onLike={handleCardLike} onDelete={handleCardDelete}
-                />
+                      onLike={handleCardLike} onDelete={handleCardDelete}/>
                 <Footer/>
 
                 <ImagePopup card={selectedCard} onclose={closeAllPopups}/>
@@ -147,17 +147,7 @@ function App() {
                 <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}
                                  onUpdateAvatar={handleUpdateAvatar}/>
 
-                <PopupWithForm name="add-card" title="Новое место" buttonText="Создать"
-                               isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
-                    <input type="text" id="add-card-input-title" name="name"
-                           className="popup__item popup__item_el_title"
-                           placeholder="Название" minLength="2" maxLength="30" required/>
-                    <span className="add-card-input-title-error popup__item-error"></span>
-                    <input type="url" id="add-card-input-link" name="link"
-                           className="popup__item popup__item_el_image"
-                           placeholder="Ссылка на картинку" required/>
-                    <span className="add-card-input-link-error popup__item-error"></span>
-                </PopupWithForm>
+                <AddCardPopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
             </div>
         </CurrentUserContext.Provider>
     )
