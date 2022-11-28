@@ -1,7 +1,25 @@
 import React from "react";
+import {CurrentUserContext} from "../contexts/CurrentUserContext"
 
 function EditProfilePopup(props) {
-    return(
+    const currentUser = React.useContext(CurrentUserContext);
+    const [name, setName] = React.useState('');
+    const [description, setDescription] = React.useState('');
+
+    React.useEffect(() => {
+        setName(currentUser.name);
+        setDescription(currentUser.about);
+    }, [currentUser]);
+
+    function handleChangeName(evt) {
+        setName(evt.target.value);
+    }
+
+    function handleChangeDescription(evt) {
+        setDescription(evt.target.value);
+    }
+
+    return (
         <div className={`popup popup_theme_${props.name} ${props.isOpen ? 'popup_opened' : ''}`}>
             <div className="popup__container">
                 <button type="button"
@@ -9,11 +27,12 @@ function EditProfilePopup(props) {
                 <h2 className="popup__title">Редактировать профиль</h2>
                 <form className="popup__form" name="profile-info" noValidate>
                     <input type="text" id="profile-info-input-name" name="name"
-                           className="popup__item popup__item_el_name"
+                           className="popup__item popup__item_el_name" value={name || ''} onChange={handleChangeName}
                            placeholder="Имя пользователя" minLength="2" maxLength="40" required/>
                     <span className="profile-info-input-name-error popup__item-error"></span>
                     <input type="text" id="profile-info-input-job" name="job"
-                           className="popup__item popup__item_el_job"
+                           className="popup__item popup__item_el_job" value={description || ''}
+                           onChange={handleChangeDescription}
                            placeholder="Род деятельности" minLength="2" maxLength="200" required/>
                     <span className="profile-info-input-job-error popup__item-error"></span>
                     <button className="popup__button popup__button_theme_edit-photo" onSubmit={props.onClose}>
