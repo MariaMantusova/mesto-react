@@ -73,6 +73,15 @@ function App() {
         setSelectedCard(null);
     }
 
+    function handleUpdateUser(name, description) {
+        api.changeUserInfo(name, description)
+            .then((userInfo) => {
+                setCurrentUser(userInfo);
+                closeAllPopups();
+            })
+            .catch((err) => console.log(err))
+    }
+
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
@@ -85,7 +94,8 @@ function App() {
 
                 <PopupWithForm name="confirm" title="Вы уверены?" buttonText="Да"/>
 
-                <EditProfilePopup onClose={closeAllPopups} isOpen={isEditProfilePopupOpen} />
+                <EditProfilePopup onClose={closeAllPopups} isOpen={isEditProfilePopupOpen}
+                                  onUpdateUser={handleUpdateUser}/>
 
                 <PopupWithForm name="add-card" title="Новое место" buttonText="Создать"
                                isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
